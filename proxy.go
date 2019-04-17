@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"net/http/httputil"
 	"net/url"
 	"runtime"
 	"time"
@@ -19,8 +18,7 @@ func serveReverseProxy(target string, res http.ResponseWriter, req *http.Request
 	// parse the url
 	url, _ := url.Parse(target)
 
-	// create the reverse proxy
-	proxy := httputil.NewSingleHostReverseProxy(url)
+	proxy := NewCustomSingleHostReverseProxy(url)
 
 	// Update the headers to allow for SSL redirection
 	req.URL.Host = url.Host
